@@ -1,0 +1,11 @@
+ONLYBACKUP=~/backups/
+DATADIR=~/.near
+
+if [ -d "$ONLYBACKUP" ]; then
+    UNPACK_FILE=$(find $ONLYBACKUP -type f -printf '%T@ %p\n' | sort -n | tail -1 | cut -f2- -d" ")
+    
+    tar -xzvf $UNPACK_FILE
+else
+    
+    exit 0
+fi

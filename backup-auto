@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATE=$(date +%Y-%m-%d-%H-%M)
-ARCHIVE_NAME="${DATE}.tar.gz"
+BACKUPDIR="${DATE}.tar.gz"
 
 # What to backup. 
 DATADIR=~/.near
@@ -17,8 +17,8 @@ wait
 echo "NEAR node was stopped" | ts
 
 if [ -d "$ONLYBACKUP" ]; then
-    tar -czv -f ${ARCHIVE_NAME} $DATADIR/data/
-    mv ${ARCHIVE_NAME} $ONLYBACKUP/
+    tar -czv -f ${BACKUPDIR} $DATADIR/data/
+    mv ${BACKUPDIR} $ONLYBACKUP/
     cd $ONLYBACKUP
     rm $(ls -1t $ONLYBACKUP | tail -n +2)
    

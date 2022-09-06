@@ -1,0 +1,35 @@
+#!/bin/bash
+
+DATE=$(date +%Y-%m-%d-%H-%M)
+ARCHIVE_NAME="${DATE}.tar.gz"
+
+# What to backup. 
+DATADIR=~/.near
+
+# Where to backup to.
+ONLYBACKUP=~/backups/
+mkdir $ONLYBACKUP
+
+sudo systemctl stop neard.service
+
+wait
+
+echo "NEAR node was stopped" | ts
+
+if [ -d "$ONLYBACKUP" ]; then
+    tar -czv -f ${ARCHIVE_NAME} $DATADIR/data/
+    mv ${ARCHIVE_NAME} $ONLYBACKUP/
+    cd $ONLYBACKUP
+    rm $(ls -1t $ONLYBACKUP | tail -n +2)
+   
+    curl -fsS -m 10 --retry 5 -o /dev/null https://hc-ping.com/3ce46243-472c-43c1-a596-3c2ac3046733
+    
+    echo "Backup completed" | ts
+
+else
+    exit 0
+fi
+
+sudo systemctl start neard.service
+
+echo "Node was started" | ts

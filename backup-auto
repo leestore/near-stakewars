@@ -2,11 +2,9 @@
 
 DATE=$(date +%Y-%m-%d-%H-%M)
 BACKUPDIR="${DATE}.tar.gz"
-
-# What to backup. 
+ 
 DATADIR=~/.near
 
-# Where to backup to.
 ONLYBACKUP=~/backups/
 mkdir $ONLYBACKUP
 
